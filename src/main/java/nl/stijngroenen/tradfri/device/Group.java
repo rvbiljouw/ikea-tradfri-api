@@ -180,6 +180,63 @@ public class Group {
     }
 
     /**
+     * Get the colour of the group in hexadecimals
+     * @return The colour of the group in hexadecimals
+     * @since 1.3.0
+     */
+    public String getColourHex() {
+        return properties.getColourHex();
+    }
+
+    /**
+     * Update the colour of the group in the update queue to a predefined hexadecimal colour<br>
+     * Available colours:<br>
+     * <ul>
+     *     <li>RGB: {@link nl.stijngroenen.tradfri.util.ColourHex}</li>
+     *     <li>Colour temperatures: {@link nl.stijngroenen.tradfri.util.ColourTemperatureHex}</li>
+     * </ul>
+     * @param colourHex The new colour for the group
+     * @since 1.3.0
+     */
+    public void updateColourHex(String colourHex) {
+        newProperties.setColourHex(colourHex);
+    }
+
+    /**
+     * Set the colour of the group to a predefined hexadecimal colour<br>
+     * Available colours:<br>
+     * <ul>
+     *     <li>RGB: {@link nl.stijngroenen.tradfri.util.ColourHex}</li>
+     *     <li>Colour temperatures: {@link nl.stijngroenen.tradfri.util.ColourTemperatureHex}</li>
+     * </ul>
+     * @param colourHex The new colour for the group
+     * @param transitionTime The transition time for updating the light
+     * @return True if successfully updated the colour of the light, false if not
+     * @since 1.3.0
+     */
+    public boolean setColourHex(String colourHex, Integer transitionTime) {
+        GroupProperties newProperties = new GroupProperties();
+        newProperties.setColourHex(colourHex);
+        newProperties.setTransitionTime(transitionTime);
+        return applyUpdate(newProperties);
+    }
+
+    /**
+     * Set the colour of the group to a predefined hexadecimal colour<br>
+     * Available colours:<br>
+     * <ul>
+     *     <li>RGB: {@link nl.stijngroenen.tradfri.util.ColourHex}</li>
+     *     <li>Colour temperatures: {@link nl.stijngroenen.tradfri.util.ColourTemperatureHex}</li>
+     * </ul>
+     * @param colourHex The new colour for the group
+     * @return True if successfully updated the colour of the light, false if not
+     * @since 1.3.0
+     */
+    public boolean setColourHex(String colourHex) {
+        return setColourHex(colourHex, null);
+    }
+
+    /**
      * Update the transition time for updating the group in the update queue
      *
      * @param transitionTime The new transition time for updating the group

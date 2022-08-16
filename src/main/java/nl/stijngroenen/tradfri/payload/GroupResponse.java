@@ -219,6 +219,6 @@ public class GroupResponse {
      * @since 1.3.0
      */
     public GroupProperties getGroupProperties() {
-        return new GroupProperties(this.on, this.brightness, null);
+        return new GroupProperties(this.on, this.brightness, null, null);
     }
 }

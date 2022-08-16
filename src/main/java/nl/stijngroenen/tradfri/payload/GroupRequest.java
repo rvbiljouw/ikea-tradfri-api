@@ -36,6 +36,12 @@ public class GroupRequest {
     private Integer transitionTime;
 
     /**
+     * The colour of the lights in the group in hexadecimal
+     */
+    @JsonProperty(ApiCode.COLOUR_HEX)
+    private String colourHex;
+
+    /**
      * Construct the GroupRequest class
      *
      * @param properties The properties to be used for request creation
@@ -45,6 +51,7 @@ public class GroupRequest {
         this.on = properties.getOn();
         this.brightness = properties.getBrightness();
         this.transitionTime = properties.getTransitionTime();
+        this.colourHex = properties.getColourHex();
     }
 
     /**

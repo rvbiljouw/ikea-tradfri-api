@@ -37,6 +37,12 @@ public class GroupProperties {
     private Integer transitionTime;
 
     /**
+     * The colour of the lights in the group in hexadecimal
+     */
+    @JsonProperty(ApiCode.COLOUR_HEX)
+    private String colourHex;
+
+    /**
      * Construct the GroupProperties class
      *
      * @param on             The on state of the group (true for on, false for off)
@@ -44,10 +50,11 @@ public class GroupProperties {
      * @param transitionTime The transition time for updating the group
      * @since 1.3.0
      */
-    public GroupProperties(Boolean on, Integer brightness, Integer transitionTime) {
+    public GroupProperties(Boolean on, Integer brightness, Integer transitionTime, String colourHex) {
         this.on = on;
         this.brightness = brightness;
         this.transitionTime = transitionTime;
+        this.colourHex = colourHex;
     }
 
     /**
@@ -119,5 +126,26 @@ public class GroupProperties {
      */
     public void setBrightness(Integer brightness) {
         this.brightness = brightness;
+    }
+
+    /**
+     * Get the colour of the lights of the group in hexadecimal
+     *
+     * @return The colour in hexadecimal of the group
+     * @since 1.3.0
+     */
+    public String getColourHex() {
+        return colourHex;
+    }
+
+    /**
+     * Set the colour of the lights in group within the GroupProperties class<br>
+     * <i>Note: This does not change the actual group</i>
+     *
+     * @param colourHex The new colour value in hexadecimal for the group
+     * @since 1.3.0
+     */
+    public void setColourHex(String colourHex) {
+        this.colourHex = colourHex;
     }
 }
