@@ -20,6 +20,7 @@ import nl.stijngroenen.tradfri.device.event.EventHandler;
 import nl.stijngroenen.tradfri.payload.AuthenticateRequest;
 import nl.stijngroenen.tradfri.payload.AuthenticateResponse;
 import nl.stijngroenen.tradfri.payload.DeviceResponse;
+import nl.stijngroenen.tradfri.payload.GroupResponse;
 import nl.stijngroenen.tradfri.util.ApiEndpoint;
 import nl.stijngroenen.tradfri.util.CoapClient;
 import nl.stijngroenen.tradfri.util.Credentials;
@@ -185,6 +186,46 @@ public class Gateway {
         Device[] devices = new Device[deviceList.size()];
         deviceList.toArray(devices);
         return devices;
+    }
+
+    /**
+     * Get the ids of groups registered to the IKEA TRÅDFRI gateway
+     * @return An array of the ids of the groups registered to the IKEA TRÅDFRI gateway
+     * @since 1.3.0
+     */
+    public int[] getGroupIds(){
+        return coapClient.get(ApiEndpoint.getUri(ApiEndpoint.GROUPS), int[].class);
+    }
+
+    /**
+     * Get the groups registered to the IKEA TRÅDFRI gateway
+     * @return An array of the groups registered to the IKEA TRÅDFRI gateway
+     * @since 1.3.0
+     */
+    public Group[] getGroups(){
+        ArrayList<Group> groupList = new ArrayList<>();
+        int[] groupIds = getGroupIds();
+        if(groupIds == null) return null;
+        for(int groupId: groupIds){
+            Group group = getGroup(groupId);
+            groupList.add(group);
+        }
+        return groupList.toArray(new Group[groupList.size()]);
+    }
+
+    /**
+     * Get a group registered to the IKEA TRÅDFRI gateway
+     * @param groupId The id of a group registered to the IKEA TRÅDFRI gateway
+     * @return The group with the provided id
+     * @since 1.3.0
+     */
+    public Group getGroup(int groupId) {
+        List<Device> devices = new ArrayList<>();
+        GroupResponse response = coapClient.get(ApiEndpoint.getUri(ApiEndpoint.GROUPS, String.valueOf(groupId)), GroupResponse.class);
+        for (Integer id : response.getDeviceIds()) {
+            devices.add(getDevice(id));
+        }
+        return new Group(response.getName(), response.getInstanceId(), response.getCreationDate(), devices, response.getGroupProperties(), coapClient);
     }
 
     /**
