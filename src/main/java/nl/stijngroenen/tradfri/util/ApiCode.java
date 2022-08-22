@@ -192,19 +192,55 @@ public class ApiCode {
      */
     public static final String ACCESSORY_LINK_REMOTE = "9018";
 
+    // Scenes
+
+    /**
+     * The IKEA TRÅDFRI API code for a scene icon<br>
+     * <i>Value: {@value}</i>
+     */
+    public static final String SCENE_ICON_ID = "9109";
+
+    /**
+     * The IKEA TRÅDFRI API code for the use current light settings flag<br>
+     * <i>Value: {@value}</i>
+     */
+    public static final String USE_CURRENT_LIGHT_SETTINGS = "9070";
+
+    /**
+     * The IKEA TRÅDFRI API code for the light setting entity<br>
+     * <i>Value: {@value}</i>
+     */
+    public static final String LIGHT_SETTING = "15013";
+
+    /**
+     * The IKEA TRÅDFRI API code for IKEA moods flag<br>
+     * <i>Value: {@value}</i>
+     */
+    public static final String IKEA_MOODS = "9068";
+
+    /**
+     * The IKEA TRÅDFRI API code for a scene active state property<br>
+     * <i>Value: {@value}</i>
+     */
+    public static final String SCENE_ACTIVATE_FLAG = "9058";
+
     /**
      * The IKEA TRÅDFRI API code for a scene id property<br>
      * <i>Value: {@value}</i>
      */
     public static final String SCENE_ID = "9039";
 
-    // Scenes
-
     /**
-     * The IKEA TRÅDFRI API code for a scene active state property<br>
+     * The IKEA TRÅDFRI API code for a scene index property<br>
      * <i>Value: {@value}</i>
      */
-    public static final String SCENE_ACTIVE_STATE = "9058";
+    public static final String SCENE_INDEX = "9057";
+
+    /**
+     * The IKEA TRÅDFRI API code for a scene link property<br>
+     * <i>Value: {@value}</i>
+     */
+    public static final String SCENE_LINK = "9009";
 
     /**
      * The IKEA TRÅDFRI API code for a device index id property<br>

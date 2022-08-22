@@ -123,6 +123,8 @@ public class ApiEndpoint {
      * <i>Value: {@value}</i>
      */
     public static final String SCENES = "15005";
+    public static final String SCENE = "15006";
+
 
     /**
      * The endpoint for IKEA TRÅDFRI notifications<br>

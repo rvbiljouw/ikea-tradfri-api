@@ -4,7 +4,9 @@ import nl.stijngroenen.tradfri.payload.GroupRequest;
 import nl.stijngroenen.tradfri.util.ApiEndpoint;
 import nl.stijngroenen.tradfri.util.CoapClient;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The class that represents an IKEA TRÅDFRI group
@@ -181,6 +183,7 @@ public class Group {
 
     /**
      * Get the colour of the group in hexadecimals
+     *
      * @return The colour of the group in hexadecimals
      * @since 1.3.0
      */
@@ -195,6 +198,7 @@ public class Group {
      *     <li>RGB: {@link nl.stijngroenen.tradfri.util.ColourHex}</li>
      *     <li>Colour temperatures: {@link nl.stijngroenen.tradfri.util.ColourTemperatureHex}</li>
      * </ul>
+     *
      * @param colourHex The new colour for the group
      * @since 1.3.0
      */
@@ -209,7 +213,8 @@ public class Group {
      *     <li>RGB: {@link nl.stijngroenen.tradfri.util.ColourHex}</li>
      *     <li>Colour temperatures: {@link nl.stijngroenen.tradfri.util.ColourTemperatureHex}</li>
      * </ul>
-     * @param colourHex The new colour for the group
+     *
+     * @param colourHex      The new colour for the group
      * @param transitionTime The transition time for updating the light
      * @return True if successfully updated the colour of the light, false if not
      * @since 1.3.0
@@ -228,6 +233,7 @@ public class Group {
      *     <li>RGB: {@link nl.stijngroenen.tradfri.util.ColourHex}</li>
      *     <li>Colour temperatures: {@link nl.stijngroenen.tradfri.util.ColourTemperatureHex}</li>
      * </ul>
+     *
      * @param colourHex The new colour for the group
      * @return True if successfully updated the colour of the light, false if not
      * @since 1.3.0
@@ -291,5 +297,27 @@ public class Group {
     public boolean applyUpdates(Integer transitionTime) {
         newProperties.setTransitionTime(transitionTime);
         return applyUpdates();
+    }
+
+    /**
+     * Get the ids of scenes stored on the IKEA TRÅDFRI gateway
+     *
+     * @return An array of the ids of scenes stored on the IKEA TRÅDFRI gateway
+     */
+    public int[] getSceneIds() {
+        return coapClient.get(ApiEndpoint.getUri(ApiEndpoint.SCENES, String.valueOf(instanceId)), int[].class);
+    }
+
+    public Scene[] getScenes() {
+        return Arrays
+                .stream(getSceneIds())
+                .mapToObj(this::getScene)
+                .toArray(Scene[]::new);
+    }
+
+    public Scene getScene(int sceneId) {
+        final String uri = ApiEndpoint.getUri(ApiEndpoint.SCENES, String.valueOf(instanceId), String.valueOf(sceneId));
+        final SceneProperties properties = coapClient.get(uri, SceneProperties.class);
+        return new Scene(properties.getName(), sceneId, System.currentTimeMillis(), properties, this, coapClient);
     }
 }
